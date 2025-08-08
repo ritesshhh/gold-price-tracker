@@ -1,0 +1,15 @@
+name: Gold Price Tracker
+
+on:
+  schedule:
+    - cron: '*/3 * * * *'  # Runs at every 3 hour
+
+jobs:
+  track-price:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: pip install requests beautifulsoup4
+      - name: Run Gold Price Tracker
+        run: python track_gold_price.py
