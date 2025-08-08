@@ -1,5 +1,6 @@
 import os
 import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 
 # --- CONFIGURE THESE ---
@@ -13,12 +14,16 @@ HEADERS = {"User-Agent": "Mozilla/5.0"}
 
 
 def fetch_gold_rate():
-    # headers = {"User-Agent": "Mozilla/5.0"}
-    headers = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36"
-    }
-    response = requests.get(GRT_URL, headers=headers)
-    soup = BeautifulSoup(response.content, "html.parser")
+    scraper = cloudscraper.create_scraper()
+    response = scraper.get("https://www.grtjewels.com/")
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    
+    #headers = {
+    #"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36"
+    #}
+    #response = requests.get(GRT_URL, headers=headers)
+    #soup = BeautifulSoup(response.content, "html.parser")
     print("soup.pretty", soup.prettify())
 
     # Finds the line containing "GOLD 22 KT/1g"
