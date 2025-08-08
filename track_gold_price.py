@@ -24,7 +24,7 @@ def fetch_gold_rate():
     #}
     #response = requests.get(GRT_URL, headers=headers)
     #soup = BeautifulSoup(response.content, "html.parser")
-    print("soup.pretty", soup.prettify())
+    #print("soup.pretty", soup.prettify())
 
     # Finds the line containing "GOLD 22 KT/1g"
     rate_line = soup.find(text=lambda t: t and "GOLD 22 KT/1g" in t)
