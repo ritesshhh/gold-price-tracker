@@ -1,9 +1,13 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 
 # --- CONFIGURE THESE ---
-TELEGRAM_BOT_TOKEN = "8227969173:AAHCGgiAIN8uTyJpo8Tm3DniG5WF4JHSp9Q"
-TELEGRAM_CHAT_ID = "5692689924"
+# TELEGRAM_BOT_TOKEN = "8227969173:AAHCGgiAIN8uTyJpo8Tm3DniG5WF4JHSp9Q"
+# TELEGRAM_CHAT_ID = "5692689924"
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
 GRT_URL = "https://www.grtjewels.com/"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 
