@@ -54,6 +54,8 @@ def send_telegram_message(message):
         "chat_id": TELEGRAM_CHAT_ID,
         "text": message
     }
+    print("TELEGRAM_BOT_TOKEN", TELEGRAM_BOT_TOKEN)
+    print("TELEGRAM_CHAT_ID", TELEGRAM_CHAT_ID)
     try:
         r = requests.post(url, data=payload)
         if r.status_code != 200:
