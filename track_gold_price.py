@@ -19,6 +19,11 @@ def fetch_gold_rate():
 
     # Finds the line containing "GOLD 22 KT/1g"
     rate_line = soup.find(text=lambda t: t and "GOLD 22 KT/1g" in t)
+    print("rate_line", rate_line)
+    
+    rate_line_new = soup.find("span", string="22Kt Gold Rate")
+    print("rate_line_new", rate_line_new)
+    
     if not rate_line:
         return None
 
