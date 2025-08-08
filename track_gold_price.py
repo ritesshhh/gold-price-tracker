@@ -1,11 +1,16 @@
 import requests
 from bs4 import BeautifulSoup
 
-URL = "https://www.grtjewels.com/"
+# --- CONFIGURE THESE ---
+TELEGRAM_BOT_TOKEN = "8227969173:AAHCGgiAIN8uTyJpo8Tm3DniG5WF4JHSp9Q"
+TELEGRAM_CHAT_ID = "5692689924"
+GRT_URL = "https://www.grtjewels.com/"
+HEADERS = {"User-Agent": "Mozilla/5.0"}
+
 
 def fetch_gold_rate():
     headers = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get(URL, headers=headers)
+    response = requests.get(GRT_URL, headers=headers)
     soup = BeautifulSoup(response.content, "html.parser")
 
     # Finds the line containing "GOLD 22 KT/1g"
@@ -24,9 +29,28 @@ def fetch_gold_rate():
     except ValueError:
         return None
 
+
+def send_telegram_message(message):
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message
+    }
+    try:
+        r = requests.post(url, data=payload)
+        if r.status_code != 200:
+            print("Telegram message failed:", r.text)
+    except Exception as e:
+        print(f"Telegram error: {e}")
+
+
 if __name__ == "__main__":
     rate = fetch_gold_rate()
     if rate:
-        print(f"✨ GRT Gold Rate (22K): ₹{rate} per gram")
+        msg = f"✨ Today's 22K Gold Rate (GRT): ₹{rate:.2f}/g"
+        print(msg)
+        send_telegram_message(msg)
     else:
-        print("❌ Could not fetch the gold rate at this time.")
+        err_msg = "❌ Failed to fetch 22K gold rate from GRT."
+        print(err_msg)
+        #send_telegram_message(err_msg)
