@@ -1,0 +1,29 @@
+name: Gold Rate Notifier
+
+on:
+  schedule:
+    - cron: '*/6 * * * *'  # Every 12 hours
+  workflow_dispatch:        # Manual trigger from GitHub UI
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: pip install requests beautifulsoup4
+
+    - name: Run gold rate tracker
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: |
+        python3 gold_tracker.py
