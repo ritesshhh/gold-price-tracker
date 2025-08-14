@@ -2,7 +2,7 @@ name: Gold Rate Notifier
 
 on:
   schedule:
-    - cron: '0 10,14,18 * * *'
+    - cron: '0 11,14,18 * * *'
   workflow_dispatch:        # Manual trigger from GitHub UI
 
 jobs:
